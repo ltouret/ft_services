@@ -6,7 +6,7 @@ WORKDIR /www
 
 # Installing necessary software
 RUN apk update \
-	&& apk add wget nginx openssl php7 php7-fpm php7-opcache php7-gd php7-mysqli php7-zlib php7-curl php7-mbstring php7-json php7-session
+	&& apk add nginx openssl 
 
 RUN adduser -D -g 'www' www
 RUN chown -R www:www /var/lib/nginx
@@ -14,7 +14,7 @@ RUN chown -R www:www /www
 
 # Copying configuration files
 COPY nginx.conf /etc/nginx/
-COPY wp-config.php /www/wordpress/ 
+COPY index.html /www/
 
 # Copy & run srcs/start.sh
 COPY start.sh /

@@ -14,7 +14,7 @@ RUN chown -R www:www /www
 
 # Copying configuration files
 COPY nginx.conf /etc/nginx/
-COPY wp-config.php /www/wordpress/ 
+COPY config.inc.php /www/phpmyadmin/ 
 
 # Copy & run srcs/start.sh
 COPY start.sh /
