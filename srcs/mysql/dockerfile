@@ -1,0 +1,18 @@
+# Use the official image as a parent image.
+FROM alpine 
+
+# Installing necessary software
+RUN apk update \
+	&& apk add mysql mysql-client
+
+# Copying configuration files
+
+COPY my.cnf /etc/mysql/
+
+# Copy & run srcs/start.sh
+COPY start.sh /
+RUN chmod +x /start.sh
+ENTRYPOINT ["/start.sh"]
+
+# Opening ports
+EXPOSE 80 443
