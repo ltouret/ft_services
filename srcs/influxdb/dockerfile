@@ -1,0 +1,17 @@
+# Use the official image as a parent image.
+FROM alpine 
+
+# Installing necessary software
+RUN apk update \
+	&& apk add influxdb telegraf
+
+# Copying configuration files
+# add here telegraf
+
+# Copy & run srcs/start.sh
+COPY start.sh /
+RUN chmod +x /start.sh
+CMD ["/start.sh"]
+
+# Opening ports
+EXPOSE 8086 

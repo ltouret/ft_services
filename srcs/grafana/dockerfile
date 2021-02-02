@@ -1,0 +1,17 @@
+# Use the official image as a parent image.
+FROM alpine 
+
+# Installing necessary software
+RUN apk update \
+	&& apk add grafana telegraf
+
+# Copying configuration files
+# add here grafana.db + telegraf
+
+# Copy & run srcs/start.sh
+COPY start.sh /
+RUN chmod +x /start.sh
+CMD ["/start.sh"]
+
+# Opening ports
+EXPOSE 3000 

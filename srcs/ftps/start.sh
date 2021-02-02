@@ -9,6 +9,13 @@ chmod 777 /home/vsftpd/admin/
 echo "admin:$(openssl passwd -1 root)" >> /etc/vsftpd/virtual_users
 chmod 600 /etc/vsftpd/virtual_users
 
+## Print user & pass
+echo "
+	Ftps server
+	User: admin
+	Passwd: root
+"
+
 ## Start services &  keep container running
 
 vsftpd /etc/vsftpd/vsftpd.conf
