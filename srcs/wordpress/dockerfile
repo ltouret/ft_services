@@ -5,8 +5,7 @@ FROM alpine
 WORKDIR /www
 
 # Installing necessary software
-RUN apk update \
-	&& apk add wget nginx php7-common php7 php7-curl php7-fpm php7-gd php7-json php7-mbstring php7-openssl php7-mysqlnd php7-mysqli php7-opcache php7-session php7-cgi php7-ctype php7-dom php7-gettext php7-iconv php7-imap php7-ldap php7-pecl-mcrypt php7-pdo php7-pdo_mysql php7-phar php7-posix php7-soap php7-xml php7-xmlrpc php7-zip
+RUN apk add --update --no-cache wget nginx telegraf php7-common php7 php7-curl php7-fpm php7-gd php7-json php7-mbstring php7-openssl php7-mysqlnd php7-mysqli php7-opcache php7-session php7-cgi php7-ctype php7-dom php7-gettext php7-iconv php7-imap php7-ldap php7-pecl-mcrypt php7-pdo php7-pdo_mysql php7-phar php7-posix php7-soap php7-xml php7-xmlrpc php7-zip
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN mv wp-cli.phar /usr/bin/wp-cli && chmod 777 /usr/bin/wp-cli
 RUN adduser -D -g 'www' www
@@ -14,6 +13,8 @@ RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /www
 
 # Copying configuration files
+RUN rm /etc/telegraf.conf
+COPY ./telegraf.conf /etc/telegraf/
 COPY nginx.conf /etc/nginx/
 COPY wp-config.php /www/wordpress/ 
 

@@ -5,14 +5,15 @@ FROM alpine
 WORKDIR /www
 
 # Installing necessary software
-RUN apk update \
-	&& apk add nginx openssl 
+RUN apk add --update --no-cache nginx openssl telegraf
 
 RUN adduser -D -g 'www' www
 RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /www
 
 # Copying configuration files
+RUN rm /etc/telegraf.conf
+COPY ./telegraf.conf /etc/telegraf/
 COPY nginx.conf /etc/nginx/
 COPY index.html /www/
 

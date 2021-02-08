@@ -2,11 +2,12 @@
 FROM alpine 
 
 # Installing necessary software
-RUN apk update \
-	&& apk add grafana telegraf
+RUN apk add --update --no-cache grafana telegraf
 
 # Copying configuration files
-# add here grafana.db + telegraf
+RUN rm /etc/telegraf.conf
+COPY ./telegraf.conf /etc/telegraf/
+COPY grafana.db /usr/share/grafana/data/
 
 # Copy & run srcs/start.sh
 COPY start.sh /

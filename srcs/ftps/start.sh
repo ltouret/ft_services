@@ -1,7 +1,6 @@
 #!/bin/sh
 
 ## Conf ftps 
-
 cd /etc/vsftpd/
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout ftps.pem -out ftps.pem -subj "/C=GB/ST=London/L=London/O=Global Security/OU=IT Department/CN=example.com"
 mkdir -p /home/vsftpd/admin/ 
@@ -17,5 +16,5 @@ echo "
 "
 
 ## Start services &  keep container running
-
+telegraf &
 vsftpd /etc/vsftpd/vsftpd.conf

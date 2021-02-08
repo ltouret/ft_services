@@ -2,11 +2,11 @@
 FROM alpine 
 
 # Installing necessary software
-RUN apk update \
-	&& apk add mysql mysql-client
+RUN apk add --update --no-cache mysql mysql-client telegraf
 
 # Copying configuration files
-
+RUN rm /etc/telegraf.conf
+COPY ./telegraf.conf /etc/telegraf/
 COPY my.cnf /etc/mysql/
 
 # Copy & run srcs/start.sh

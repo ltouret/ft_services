@@ -2,11 +2,12 @@
 FROM alpine 
 
 # Installing necessary software
-RUN apk update \
-	&& apk add influxdb telegraf
+# temproray error comes from here!
+RUN apk add --update --no-cache influxdb telegraf
 
 # Copying configuration files
-# add here telegraf
+RUN rm /etc/telegraf.conf
+COPY ./telegraf.conf /etc/telegraf/
 
 # Copy & run srcs/start.sh
 COPY start.sh /

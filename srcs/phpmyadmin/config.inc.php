@@ -28,7 +28,7 @@ $i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = 'localhost';
+$cfg['Servers'][$i]['host'] = 'mysql';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = false;
 
@@ -37,10 +37,10 @@ $cfg['Servers'][$i]['AllowNoPassword'] = false;
  */
 
 /* User used to manipulate with storage */
-$cfg['Servers'][$i]['controlhost'] = 'localhost';
+$cfg['Servers'][$i]['controlhost'] = 'mysql';
 $cfg['Servers'][$i]['controlport'] = '';
-$cfg['Servers'][$i]['controluser'] = 'pma';
-$cfg['Servers'][$i]['controlpass'] = 'pmapass';
+$cfg['Servers'][$i]['controluser'] = 'admin';
+$cfg['Servers'][$i]['controlpass'] = 'passwd';
 
 /* Storage database and tables */
 // $cfg['Servers'][$i]['pmadb'] = 'phpmyadmin';
@@ -73,6 +73,8 @@ $cfg['Servers'][$i]['controlpass'] = 'pmapass';
  */
 $cfg['UploadDir'] = '';
 $cfg['SaveDir'] = '';
+$cfg['PmaAbsoluteUri'] = './';
+$cfg['TempDir'] = '/tmp';
 
 /**
  * Whether to display icons or text or both icons and text in table row

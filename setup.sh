@@ -1,5 +1,4 @@
 #!/bin/bash
-
 set -e
 
 panic ()
@@ -17,15 +16,17 @@ minikube status > /dev/null \
 	|| panic
 
 MINIKUBE_IP=$(minikube ip)
-if [ "MINIKUBE_IP" = "127.0.0.1"]
+if [ "$MINIKUBE_IP" = "127.0.0.1" ]
 then
 	MINIKUBE_IP="172.17.0.2"
 fi
 
+echo "
+MINIKUBE_IP = $MINIKUBE_IP"
+
 eval $(minikube docker-env)
 
 echo "
-
 # MetalLB installation ...
 "
 
@@ -35,18 +36,20 @@ envsubst < srcs/metallb/metallb.yaml | kubectl apply -f - || panic
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
 echo "
-
 # Building containers ...
 "
 
-for service in influxdb nginx phpmyadmin mysql ftps grafana wordpress
+sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/ftps/vsftpd.conf
+#sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/wordpress/start.sh
+sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/metallb/metallb.yaml
+
+for service in phpmyadmin influxdb mysql grafana wordpress ftps nginx 
 do
 	docker build -t ${service}_custom srcs/$service/
-	sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/$service/$service.yaml
-	mv srcs/$service/$service.yaml.bak srcs/$service/$service.yaml
 	kubectl apply -f srcs/$service/$service.yaml
 done
-
-sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/metallb/metallb.yaml
 kubectl apply -f srcs/metallb/metallb.yaml
+
+mv srcs/ftps/vsftpd.conf.bak srcs/ftps/vsftpd.conf
+#mv srcs/wordpress/start.sh.bak srcs/wordpress/start.sh
 mv srcs/metallb/metallb.yaml.bak srcs/metallb/metallb.yaml

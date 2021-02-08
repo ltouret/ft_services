@@ -4,10 +4,10 @@
 echo "
 	Grafana
 	User: admin
-	Passwd: cursus42 
+	Passwd: passwd 
 "
 
 ## Start services &  keep container running
-
+telegraf &
 cd /usr/share/grafana
 grafana-server
