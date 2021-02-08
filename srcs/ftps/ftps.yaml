@@ -1,0 +1,84 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ftps-pvc
+  labels:
+    app: ftps
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ftps
+  name: ftps
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ftps
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: ftps
+    spec:
+      containers:
+      - name: ftps
+        image: ftps_custom
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 20
+        - containerPort: 21
+        - containerPort: 21100
+        - containerPort: 21101
+        - containerPort: 21102
+        - containerPort: 21103
+        - containerPort: 21104
+        - containerPort: 21105
+        - containerPort: 21106
+        - containerPort: 21107
+        - containerPort: 21108
+        - containerPort: 21109
+        - containerPort: 21110
+        volumeMounts:
+        - name: ftps-volume
+          mountPath: /home/vsftpd/admin
+      volumes:
+      - name: ftps-volume
+        persistentVolumeClaim:
+          claimName: ftps-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ftps
+  name: ftps-service
+  annotations:
+    metallb.universe.tf/address-pool: default
+    metallb.universe.tf/allow-shared-ip: shared
+spec:
+  type: LoadBalancer
+  ports:
+  - { port: 20, targetPort: 20, name: ftp-data }
+  - { port: 21, targetPort: 21, name: ftp }
+  - { port: 21100, targetPort: 21100, name: pasv0 }
+  - { port: 21101, targetPort: 21101, name: pasv1 }
+  - { port: 21102, targetPort: 21102, name: pasv2 }
+  - { port: 21103, targetPort: 21103, name: pasv3 }
+  - { port: 21104, targetPort: 21104, name: pasv4 }
+  - { port: 21105, targetPort: 21105, name: pasv5 }
+  - { port: 21106, targetPort: 21106, name: pasv6 }
+  - { port: 21107, targetPort: 21107, name: pasv7 }
+  - { port: 21108, targetPort: 21108, name: pasv8 }
+  - { port: 21109, targetPort: 21109, name: pasv9 }
+  - { port: 21110, targetPort: 21110, name: pasv10 }
+  selector:
+    app: ftps

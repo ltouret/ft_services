@@ -1,0 +1,7 @@
+resources:
+  - mysql/mysql.yaml
+  - wordpress/wordpress.yaml
+  - nginx/nginx.yaml
+  - phpmyadmin/phpmyadmin.yaml
+  - ftps/ftps.yaml
+  - grafana/grafana.yaml

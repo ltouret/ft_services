@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  annotations:
+    metallb.universe.tf/address-pool: default
+    metallb.universe.tf/allow-shared-ip: shared
+spec:
+  type: LoadBalancer
+  selector:
+    app: grafana
+  ports:
+  - port: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  labels:
+    app: grafana
+spec:
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana_custom
+        imagePullPolicy: Never
