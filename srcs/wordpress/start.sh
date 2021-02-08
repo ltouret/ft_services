@@ -9,5 +9,5 @@ rm latest.tar.gz
 
 ## Start services &  keep container running
 
-/usr/sbin/php-fpm7
+php-fpm7
 nginx -g 'daemon off;'
