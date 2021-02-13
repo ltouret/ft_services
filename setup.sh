@@ -50,10 +50,6 @@ do
 done
 kubectl apply -f srcs/metallb/metallb.yaml
 
-echo "
-# changin ips
-"
-
 mv srcs/ftps/vsftpd.conf.bak srcs/ftps/vsftpd.conf
 mv srcs/wordpress/start.sh.bak srcs/wordpress/start.sh
 mv srcs/metallb/metallb.yaml.bak srcs/metallb/metallb.yaml
