@@ -40,7 +40,7 @@ echo "
 "
 
 sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/ftps/vsftpd.conf
-#sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/wordpress/start.sh
+sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/wordpress/start.sh
 sed -i.bak "s/minikube_ip/$MINIKUBE_IP/g" srcs/metallb/metallb.yaml
 
 for service in phpmyadmin influxdb mysql grafana wordpress ftps nginx 
@@ -50,6 +50,29 @@ do
 done
 kubectl apply -f srcs/metallb/metallb.yaml
 
+echo "
+# changin ips
+"
+
 mv srcs/ftps/vsftpd.conf.bak srcs/ftps/vsftpd.conf
-#mv srcs/wordpress/start.sh.bak srcs/wordpress/start.sh
+mv srcs/wordpress/start.sh.bak srcs/wordpress/start.sh
 mv srcs/metallb/metallb.yaml.bak srcs/metallb/metallb.yaml
+
+echo "
+Nginx : http://${MINIKUBE_IP} ou https://${MINIKUBE_IP}
+"
+echo "PhpMyAdmin : http://${MINIKUBE_IP}:5000 ou http://${MINIKUBE_IP}/phpmyadmin
+user: admin
+password: passwd
+"
+echo "Wordpress : http://${MINIKUBE_IP}:5050 ou http://${MINIKUBE_IP}/wordpress
+"
+echo "Grafana : http://${MINIKUBE_IP}:3000
+user: admin
+password: passwd"
+
+echo "
+# starting dashboard ...
+"
+
+minikube dashboard

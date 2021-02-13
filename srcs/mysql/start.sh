@@ -16,4 +16,13 @@ mysql -u root -e "CREATE USER 'admin'@'%' IDENTIFIED BY 'passwd';GRANT ALL PRIVI
 
 ## Start services &  keep container running
 telegraf &
-mysqld -u root
+mysqld -u root &
+
+while true
+do
+	sleep 1
+	if [ $(ps | grep -v grep | grep mysqld | wc -l) -eq 0 ] || [ $(ps | grep -v grep | grep telegraf | wc -l) -eq 0 ]
+	then
+		exit
+	fi
+done
