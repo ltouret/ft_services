@@ -50,22 +50,23 @@ do
 done
 kubectl apply -f srcs/metallb/metallb.yaml
 
+sleep 5
+
 mv srcs/ftps/vsftpd.conf.bak srcs/ftps/vsftpd.conf
 mv srcs/wordpress/start.sh.bak srcs/wordpress/start.sh
 mv srcs/metallb/metallb.yaml.bak srcs/metallb/metallb.yaml
 
 echo "
-Nginx : http://${MINIKUBE_IP} ou https://${MINIKUBE_IP}
+Nginx : http://${MINIKUBE_IP} or https://${MINIKUBE_IP}
 "
-echo "PhpMyAdmin : http://${MINIKUBE_IP}:5000 ou http://${MINIKUBE_IP}/phpmyadmin
+echo "PhpMyAdmin : http://${MINIKUBE_IP}:5000 or http://${MINIKUBE_IP}/phpmyadmin
 user: admin
 password: passwd
 "
-echo "Wordpress : http://${MINIKUBE_IP}:5050 ou http://${MINIKUBE_IP}/wordpress
-"
-echo "Wordpress : 
-users: user1, user2, user3
+echo "Wordpress : http://${MINIKUBE_IP}:5050 or http://${MINIKUBE_IP}/wordpress
+users: admin, user1, user2, user3
 password: passwd
+to login use wp-login.php
 "
 echo "Grafana : http://${MINIKUBE_IP}:3000
 user: admin
