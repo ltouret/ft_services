@@ -60,7 +60,7 @@ echo "
 ftps : ${MINIKUBE_IP}
 user: admin
 password: passwd
-Use lftp -u admin,passwd ${MINIKUBE_IP}, to connect
+Use lftp -u admin,passwd ${MINIKUBE_IP}, to connect and add set ftp:ssl-allow no
 "
 echo "
 Nginx : http://${MINIKUBE_IP} or https://${MINIKUBE_IP}
