@@ -57,6 +57,12 @@ mv srcs/wordpress/start.sh.bak srcs/wordpress/start.sh
 mv srcs/metallb/metallb.yaml.bak srcs/metallb/metallb.yaml
 
 echo "
+ftps : ${MINIKUBE_IP}
+user: admin
+password: passwd
+Use lftp -u admin,passwd ${MINIKUBE_IP}, to connect
+"
+echo "
 Nginx : http://${MINIKUBE_IP} or https://${MINIKUBE_IP}
 "
 echo "PhpMyAdmin : http://${MINIKUBE_IP}:5000 or http://${MINIKUBE_IP}/phpmyadmin
