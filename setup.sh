@@ -63,6 +63,10 @@ password: passwd
 "
 echo "Wordpress : http://${MINIKUBE_IP}:5050 ou http://${MINIKUBE_IP}/wordpress
 "
+echo "Wordpress : 
+users: user1, user2, user3
+password: passwd
+"
 echo "Grafana : http://${MINIKUBE_IP}:3000
 user: admin
 password: passwd"
