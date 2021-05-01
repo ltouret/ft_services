@@ -11,6 +11,13 @@ RUN adduser -D -g 'www' www
 RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /www
 
+# Conf phpMyAdmin
+RUN wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-all-languages.tar.gz 
+RUN tar xzf phpMyAdmin-4.9.5-all-languages.tar.gz
+RUN mv phpMyAdmin-4.9.5-all-languages/ phpmyadmin/
+RUN rm phpmyadmin/config.sample.inc.php
+RUN rm -rf phpMyAdmin-4.9.5-all-languages.tar.gz
+
 # Copying configuration files
 RUN rm /etc/telegraf.conf
 COPY ./telegraf.conf /etc/telegraf/
